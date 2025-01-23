@@ -1,13 +1,39 @@
-{% extends "base.html" %}        
+{% extends "base.html" %}
 {% block title %}Entrenadores{% endblock title %}
+{% load static %}
 {% block content %}
+
     <br>
     <h3> Entrenadores </h3>
-    <ul class="list-group">
+    <div class="row">
         {% for trainer in trainers %}
-        <li class="list-group-item">
-            <a href="trainer/{{trainer.id}}">{{ trainer | capfirst }}</a>
-        </li>
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            {% if trainer.profile_picture %}
+                                <img src="{{ trainer.profile_picture.url }}" class="img-fluid rounded-start" alt="{{ trainer.first_name }}">
+                            {% else %}
+                                <img src="{% static 'path/to/default/image.png' %}" class="img-fluid rounded-start" alt="Default Image">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h5>
+                                <p class="card-text">Nivel: {{ trainer.level }}</p>
+                                <p class="card-text">Edad: {{ today|date:"Y" }} - {{ trainer.birth_date|date:"Y" }}</p>
+                                <a href="{% url 'pokedex:edit_trainer' trainer.id %}" class="btn btn-warning">Editar Entrenador</a>
+                                {% if user.is_authenticated %}
+                                <form action="{% url 'pokedex:delete_trainer' trainer.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Eliminar Entrenador</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock content %}
