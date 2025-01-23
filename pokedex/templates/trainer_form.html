@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Agregar Entrenador{% endblock title %}
+{% block content %}
+<h2>Agregar Nuevo Entrenador</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="first_name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="first_name" name="first_name" required>
+    </div>
+    <div class="mb-3">
+        <label for="last_name" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="last_name" name="last_name" required>
+    </div>
+    <div class="mb-3">
+        <label for="birth_date" class="form-label">Fecha de Nacimiento</label>
+        <input type="date" class="form-control" id="birth_date" name="birth_date" required>
+    </div>
+    <div class="mb-3">
+        <label for="level" class="form-label">Nivel</label>
+        <input type="text" class="form-control" id="level" name="level" required>
+    </div>
+    <div class="mb-3">
+        <label for="profile_picture" class="form-label">Imagen de Perfil</label>
+        <input type="file" class="form-control" id="profile_picture" name="profile_picture" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar Entrenador</button>
+</form>
+{% endblock content %}

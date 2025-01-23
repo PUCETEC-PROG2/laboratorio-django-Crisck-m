@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 {% block title %}{{ trainer | capfirst }}{% endblock title %}
 {% block content %}
-  <p>Has elegido el Entrenador: <strong>{{ trainer | capfirst }}</strong></p>
-  <h3>Informaciòn del Entrenador</h3>
-  <ul>
-      <li>Nombre: {{trainer.first_name}}</li>
-      <li>Apellido: {{trainer.last_name}}</li>
-      <li>Nivel: {{trainer.level}}</li>
-      <li>Fecha Nacimiento: {{trainer.birth_date}}</li>
-  </ul>
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ trainer.profile_picture.url }}" class="img-fluid rounded-start" alt="{{ trainer.first_name }}">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h5>
+        <p class="card-text">Nivel: {{ trainer.level }}</p>
+        <p class="card-text">Edad: {{ (today|date:"Y")|add:"-"|add:trainer.birth_date|date:"Y" }}</p>
+        <a href="{% url 'pokedex:edit_trainer' trainer.id %}" class="btn btn-warning">Editar Entrenador</a>
+        {% if user.is_authenticated %}
+        <form action="{% url 'pokedex:delete_trainer' trainer.id %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Eliminar Entrenador</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
-      
-
-            

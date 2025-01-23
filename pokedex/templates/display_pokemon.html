@@ -2,13 +2,14 @@
 {% block title %}{{ pokemon | capfirst }}{% endblock title %}
 {% block content %}
     <p>Has elegido el pokemon: <strong>{{ pokemon | capfirst }}</strong></p>
-    <h3>Informaciòn del Pokemon</h3>
+    <p> Detalles </p>
     <ul>
-        <li>Nombre: {{pokemon.name}}</li>
-        <li>Tipo: {{pokemon.type}}</li>
-        <li>Peso: {{pokemon.weight}} kg.</li>
-        <li>Altura: {{pokemon.height}} cm.</li>
-        <li>Entrenador: {{pokemon.trainer}}</li>
+        <li>Nombre: {{ pokemon.name}} </li>
+        <li>Tipo: {{ pokemon.get_type_display}} </li>
+        <li>Peso: {{ pokemon.weight}} </li>
+        <li>Altura: {{ pokemon.height}} </li>
+        <li>Entrenador: {{ pokemon.trainer}} </li>
     </ul>
 {% endblock content %}
-  
+
+
